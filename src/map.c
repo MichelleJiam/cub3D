@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/14 15:52:58 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 18:17:22 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:08:16 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_map(t_map *map)
 	map->cols = 0;
 	map->rows = 0;
 	map->spritenum = 0;
+	map->star = 0;
 	map->sprites = NULL;
 	map->perpdist = NULL;
 }

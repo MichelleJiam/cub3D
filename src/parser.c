@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/29 15:44:23 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 17:55:18 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:44:09 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		finish_parse(t_game *game)
 		err_handler(game, "Missing starting position\n");
 	map_copier(game, map);
 	map_checker(game, map, game->player.pos.x, game->player.pos.y);
+	game->player.quest = game->map.spritenum;
 	while (map[i])
 	{
 		free(map[i]);

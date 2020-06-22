@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/30 16:46:17 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/09 14:43:14 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:28:45 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	config_checker(t_game *game)
 	else if (!game->config.sprite.ptr)
 		err_handler(game,
 			"Missing sprite texture. Has to be specified before map\n");
-	else if ((!game->config.floor.colour && !game->config.tex[F].ptr) ||
-				(!game->config.ceiling.colour && !game->config.tex[C].ptr))
+	else if ((game->config.floor.colour == 2147483648 &&
+			!game->config.tex[F].ptr) || (game->config.ceiling.colour ==
+			2147483648 && !game->config.tex[C].ptr))
 		err_handler(game,
 			"Missing floor/ceiling colour. Has to be specified before map\n");
 }
@@ -47,6 +48,14 @@ int		map_checker(t_game *game, char **map, int x, int y)
 		map_checker(game, map, x, y + 1);
 	if (y > 0)
 		map_checker(game, map, x, y - 1);
+	if (x < game->map.cols - 1 && y < game->map.rows - 1)
+		map_checker(game, map, x + 1, y + 1);
+	if (x < game->map.cols - 1 && y > 0)
+		map_checker(game, map, x + 1, y - 1);
+	if (x > 0 && y > 0)
+		map_checker(game, map, x - 1, y - 1);
+	if (x > 0 && y < game->map.rows - 1)
+		map_checker(game, map, x - 1, y + 1);
 	return (0);
 }
 

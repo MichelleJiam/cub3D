@@ -6,28 +6,25 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/22 17:17:32 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 18:36:59 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/18 17:09:14 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	sprite_lister(t_game *game, t_sprite **list, int x, int y)
+void	sprite_zapper(t_sprite **list, t_pos pos)
 {
-	t_sprite *new;
+	t_sprite	*head;
 
-	new = (t_sprite *)malloc(sizeof(t_sprite));
-	if (!new)
-		err_handler(game, "Malloc fail\n");
-	pos_setter(&new->pos, x + 0.5, y + 0.5);
-	new->dist = 0;
-	if (!list)
-		new->next = NULL;
-	else
+	head = *list;
+	while (*list)
 	{
-		new->next = *list;
+		if (pos.x >= (*list)->pos.x - 0.5 && pos.x <= (*list)->pos.x + 0.5 &&
+			pos.y >= (*list)->pos.y - 0.5 && pos.y <= (*list)->pos.y + 0.5)
+			pos_setter(&(*list)->pos, 0, 0);
+		*list = (*list)->next;
 	}
-	*list = new;
+	*list = head;
 }
 
 void	sprite_drawer(t_game *game, t_sprite *sprite, t_render *sp, t_img *tex)
@@ -49,7 +46,7 @@ void	sprite_drawer(t_game *game, t_sprite *sprite, t_render *sp, t_img *tex)
 				tex->pos.y = ((f * tex->height) / sp->dim.y) / 2;
 				sp->col.colour = tex_pixeliser(tex, tex->pos.x, tex->pos.y);
 				distance_shader(&sp->col, sprite->dist / 3);
-				if (sp->col.colour)
+				if (sp->col.colour && sp->col.rgb.a == 0)
 					pixel_putter(game, sp->start.x,
 									sp->start.y, sp->col.colour);
 				sp->start.y++;

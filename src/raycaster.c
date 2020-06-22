@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/22 17:19:50 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/08 17:46:10 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 13:51:11 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ void	viewfinder(t_game *game, t_view *view, int x, t_img *tex)
 	{
 		game->map.perpdist[x] = fabs((view->raypos.x - game->player.pos.x +
 								(1. - view->step.x) / 2.) / view->raydir.x);
-		*tex = view->raydir.x < 0 ? game->config.tex[W] : game->config.tex[E];
+		*tex = view->raydir.x < 0 ? game->config.tex[E] : game->config.tex[W];
 	}
 	else
 	{
 		game->map.perpdist[x] = fabs((view->raypos.y - game->player.pos.y +
 								(1. - view->step.y) / 2.) / view->raydir.y);
-		*tex = view->raydir.y < 0 ? game->config.tex[N] : game->config.tex[S];
+		*tex = view->raydir.y < 0 ? game->config.tex[S] : game->config.tex[N];
 	}
 }

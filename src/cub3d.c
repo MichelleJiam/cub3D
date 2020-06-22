@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/10 14:57:38 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/09 16:10:41 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/18 15:04:35 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ int		updater(t_game *game)
 		game->keys.key_rt || game->keys.key_rotr || game->keys.key_rotl)
 	{
 		if (game->keys.key_up)
-			mover_ud(&game->map, &game->player, &game->view, 1);
+			mover_ud(game, &game->player, &game->view, 1);
 		if (game->keys.key_dw)
-			mover_ud(&game->map, &game->player, &game->view, -1);
+			mover_ud(game, &game->player, &game->view, -1);
 		if (game->keys.key_lf)
-			mover_lr(&game->map, &game->player, &game->view, -1);
+			mover_lr(game, &game->player, &game->view, -1);
 		if (game->keys.key_rt)
-			mover_lr(&game->map, &game->player, &game->view, 1);
+			mover_lr(game, &game->player, &game->view, 1);
 		if (game->keys.key_rotr)
 			turner(&game->view, 1);
 		if (game->keys.key_rotl)
 			turner(&game->view, -1);
 		game->frame = (game->frame < 99) ? game->frame + 1 : 2;
 		render_map(game);
+		ui_drawer(game);
 	}
 	return (0);
 }
@@ -66,6 +67,7 @@ int		main(int argc, char **argv)
 		err_handler(&game, "File parsing failed\n");
 	init_mlx(&game);
 	render_map(&game);
+	ui_drawer(&game);
 	mlx_hook(game.mlx_win, 17, 1L << 17, exiter, &game);
 	mlx_hook(game.mlx_win, 2, 1L << 0, keypress, &game);
 	mlx_hook(game.mlx_win, 3, 1L << 1, keyrelease, &game);

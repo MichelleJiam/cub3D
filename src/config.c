@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/29 15:48:02 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 18:06:22 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:27:54 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		colour_setter(t_game *game, t_colour *element, char *line, int *i)
 	int	c;
 
 	c = 0;
-	if (element->colour)
+	if (element->colour != 2147483648)
 		err_handler(game, "Duplicate information (f/c) in map file\n");
 	if (value_finder(line, i, line[*i]) < 0)
 		return (-1);
@@ -31,6 +31,8 @@ int		colour_setter(t_game *game, t_colour *element, char *line, int *i)
 			return (-1);
 		c++;
 	}
+	if (c < 3)
+		err_handler(game, "Missing floor/ceiling value\n");
 	element->colour = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	game->config.i++;
 	return (0);
@@ -70,6 +72,7 @@ int		res_setter(t_game *game, char *line, int *i)
 void	tex_filer(t_game *game, char *path, t_img *tex)
 {
 	int		format;
+	int		len;
 
 	format = -1;
 	format = file_checker(2, path);
@@ -85,6 +88,10 @@ void	tex_filer(t_game *game, char *path, t_img *tex)
 					&tex->width, &tex->height);
 	if (tex->ptr == NULL)
 		err_handler(game, "Image reading fail\n");
+	len = ft_strlen(path);
+	if (!ft_strcmp(&path[len - 12], "sprite_3.xpm") ||
+		!ft_strcmp(&path[len - 12], "sprite_3.png"))
+		game->map.star = 1;
 	tex->addr = mlx_get_data_addr(tex->ptr, &tex->bpp,
 					&tex->linesize, &tex->endian);
 	if (tex->addr == NULL)

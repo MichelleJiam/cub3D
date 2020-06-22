@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 17:46:07 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 18:22:30 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/18 17:19:58 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,22 @@ t_sprite	*sprite_sorter(t_game *game, t_sprite *sprites)
 	}
 	list = mergesorter(list);
 	return (list);
+}
+
+void		sprite_lister(t_game *game, t_sprite **list, int x, int y)
+{
+	t_sprite *new;
+
+	new = (t_sprite *)malloc(sizeof(t_sprite));
+	if (!new)
+		err_handler(game, "Malloc fail\n");
+	pos_setter(&new->pos, x + 0.5, y + 0.5);
+	new->dist = 0;
+	if (!list)
+		new->next = NULL;
+	else
+	{
+		new->next = *list;
+	}
+	*list = new;
 }

@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/30 16:29:41 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/08 15:35:27 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/17 14:14:46 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,12 @@ int		exiter(t_game *game, int c)
 
 void	err_handler(t_game *game, char *str)
 {
-	write(2, "Error\n", 6);
+	if (write(2, "Error\n", 6) < 0)
+		err_handler(game, "Write failed\n");
 	if (str)
-		write(2, str, ft_strlen(str));
+	{
+		if (write(2, str, ft_strlen(str)) < 0)
+			err_handler(game, "Write failed\n");
+	}
 	exiter(game, -1);
 }

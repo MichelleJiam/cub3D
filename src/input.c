@@ -6,34 +6,56 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/29 16:25:18 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 18:32:56 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/18 18:32:59 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	mover_lr(t_map *map, t_player *player, t_view *view, int dir)
+void	mover_lr(t_game *game, t_player *player, t_view *view, int dir)
 {
 	t_pos	newpos;
 
-	newpos.x = player->pos.x + (dir * 2.5) * (view->plane.x * MOVE);
-	newpos.y = player->pos.y + (dir * 2.5) * (view->plane.y * MOVE);
-	if (map->data[(int)player->pos.y][(int)newpos.x] == '0')
+	newpos.x = player->pos.x + (dir * 3.5) * (view->plane.x * MOVE);
+	newpos.y = player->pos.y + (dir * 3.5) * (view->plane.y * MOVE);
+	if ((int)floor(newpos.x) > 0 && (int)floor(newpos.x) < game->map.cols &&
+		game->map.data[(int)player->pos.y][(int)newpos.x] == '0')
 		player->pos.x = newpos.x;
-	if (map->data[(int)newpos.y][(int)player->pos.x] == '0')
+	if ((int)floor(newpos.y) > 0 && (int)floor(newpos.y) < game->map.rows &&
+		game->map.data[(int)newpos.y][(int)player->pos.x] == '0')
 		player->pos.y = newpos.y;
+	if (game->map.data[(int)newpos.y][(int)newpos.x] == '2' &&
+		game->map.star == 1)
+	{
+		player->pos.x = newpos.x;
+		player->pos.y = newpos.y;
+		game->map.data[(int)player->pos.y][(int)player->pos.x] = '0';
+		game->map.spritenum--;
+		sprite_zapper(&game->map.sprites, player->pos);
+	}
 }
 
-void	mover_ud(t_map *map, t_player *player, t_view *view, int dir)
+void	mover_ud(t_game *game, t_player *player, t_view *view, int dir)
 {
 	t_pos	newpos;
 
-	newpos.x = player->pos.x + (dir * 2.5) * (view->dir.x * MOVE);
-	newpos.y = player->pos.y + (dir * 2.5) * (view->dir.y * MOVE);
-	if (map->data[(int)player->pos.y][(int)newpos.x] == '0')
+	newpos.x = player->pos.x + (dir * 3.5) * (view->dir.x * MOVE);
+	newpos.y = player->pos.y + (dir * 3.5) * (view->dir.y * MOVE);
+	if ((int)floor(newpos.x) > 0 && (int)floor(newpos.x) < game->map.cols &&
+		game->map.data[(int)player->pos.y][(int)newpos.x] == '0')
 		player->pos.x = newpos.x;
-	if (map->data[(int)newpos.y][(int)player->pos.x] == '0')
+	if ((int)floor(newpos.y) > 0 && (int)floor(newpos.y) < game->map.rows &&
+		game->map.data[(int)newpos.y][(int)player->pos.x] == '0')
 		player->pos.y = newpos.y;
+	if (game->map.data[(int)newpos.y][(int)newpos.x] == '2' &&
+		game->map.star == 1)
+	{
+		player->pos.x = newpos.x;
+		player->pos.y = newpos.y;
+		game->map.data[(int)player->pos.y][(int)player->pos.x] = '0';
+		game->map.spritenum--;
+		sprite_zapper(&game->map.sprites, player->pos);
+	}
 }
 
 void	turner(t_view *view, int d)

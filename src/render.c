@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/01 15:47:04 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/09 14:53:08 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:26:43 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	wall_drawer(t_game *game, t_line *line, int x, t_img *tex)
 	int			end;
 	t_colour	colour;
 
-	i = game->config.ceiling.colour ? 0 : line->start;
-	end = game->config.floor.colour ? game->config.screenheight : line->end;
+	i = !game->config.tex[C].ptr ? 0 : line->start;
+	end = !game->config.tex[F].ptr ? game->config.screenheight : line->end;
 	colour.colour = 0;
 	while (i < end)
 	{

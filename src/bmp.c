@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/27 22:40:28 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/08 14:47:59 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/17 01:30:02 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	data_writer(t_game *game)
 		while (x < game->config.screenwidth)
 		{
 			colour.colour = tex_pixeliser(&game->fr1, x, y);
-			write(game->save, &colour.colour, 3);
-			write(game->save, "0x00", 1);
+			if (write(game->save, &colour.colour, 3) < 0)
+				err_handler(game, "Write failed\n");
+			if (write(game->save, "0x00", 1) < 0)
+				err_handler(game, "Write failed\n");
 			x++;
 		}
 		y--;
@@ -66,7 +68,8 @@ void	header_writer(t_game *game)
 	shiftnwrite(buffer + 22, n);
 	buffer[26] = (unsigned char)(1);
 	buffer[28] = (unsigned char)(32);
-	write(game->save, buffer, 54);
+	if (write(game->save, buffer, 54) < 0)
+		err_handler(game, "Write failed\n");
 }
 
 void	screensaver(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/31 13:35:21 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/11 17:50:40 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/18 18:32:49 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 # define LEFT 123
 # define RIGHT 124
 # define ESC 53
+
 # define TURN 0.03
-# define MOVE 0.035
+# define MOVE 0.025
 
 typedef enum		e_form
 {
@@ -74,6 +75,7 @@ typedef struct		s_player
 {
 	t_pos			pos;
 	t_dir			startdir;
+	int				quest;
 }					t_player;
 
 typedef struct		s_render
@@ -129,6 +131,7 @@ typedef struct		s_map
 	int				cols;
 	int				rows;
 	int				spritenum;
+	int				star;
 	double			*perpdist;
 	t_sprite		*sprites;
 }					t_map;
@@ -228,9 +231,9 @@ int					map_maker(t_game *game, char *line, int *i);
 /*
 ** input
 */
-void				mover_lr(t_map *map, t_player *player,
+void				mover_lr(t_game *game, t_player *player,
 								t_view *view, int dir);
-void				mover_ud(t_map *map, t_player *player,
+void				mover_ud(t_game *game, t_player *player,
 								t_view *view, int dir);
 void				turner(t_view *view, int d);
 int					keyrelease(int keycode, t_game *game);
@@ -258,21 +261,33 @@ int					render_map(t_game *game);
 /*
 ** colour
 */
+void				distance_shader(t_colour *colour, double dist);
+void				linedraw(t_game *game, t_pos *start, t_pos *end,
+							unsigned int colour);
 void				pixel_putter(t_game *img, int x, int y,
 									unsigned int colour);
-void				distance_shader(t_colour *colour, double dist);
+
 unsigned int		tex_pixeliser(t_img *tex, int x, int y);
 
 /*
 ** sprite
 */
-void				sprite_lister(t_game *game, t_sprite **list, int x, int y);
+void				sprite_zapper(t_sprite **list, t_pos pos);
 void				sprite_drawer(t_game *game, t_sprite *sprite,
 									t_render *sp, t_img *tex);
 void				sprite_measurer(t_game *game, t_render *sp);
 void				sprite_transformer(t_game *game, t_sprite *sprite,
 										t_render *sp);
 void				sprite_summoner(t_game *game);
+
+/*
+** ui
+*/
+void				numstr_maker(char *str, int n, int *start);
+void				string_putter(char *str, char *src, int *start);
+void				quest_master(t_game *game, t_pos *start);
+void				minimapper(t_game *game, t_pos *start, t_pos *end);
+void				ui_drawer(t_game *game);
 
 /*
 ** bmp
@@ -289,6 +304,7 @@ t_sprite			*mergelist(t_sprite *sprites_a, t_sprite *sprites_b);
 void				splitlist(t_sprite *sprites_a, t_sprite **sprites_b);
 t_sprite			*mergesorter(t_sprite *sprites);
 t_sprite			*sprite_sorter(t_game *game, t_sprite *sprites);
+void				sprite_lister(t_game *game, t_sprite **list, int x, int y);
 
 /*
 ** utils
@@ -298,6 +314,10 @@ int					inset(char *line, int i);
 int					isnumber(char *line, int i);
 int					value_finder(char *line, int *i, char exc);
 int					whitespaceskip(char *line, int *i);
+
+/*
+** utils2
+*/
 intmax_t			ft_atoi(char *line, int *i);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(const char *s1);

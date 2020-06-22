@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/29 15:40:58 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/09 16:08:21 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:27:48 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	init_config(t_config *config)
 	init_img(&config->tex[F]);
 	init_img(&config->tex[C]);
 	init_img(&config->sprite);
-	config->floor.colour = 0;
-	config->ceiling.colour = 0;
+	config->floor.colour = 2147483648;
+	config->ceiling.colour = 2147483648;
 	config->screenwidth = 0;
 	config->screenheight = 0;
 }
@@ -85,6 +85,7 @@ int		init_game(t_game *game, int save)
 		err_handler(game, "Failed to open screenshot file\n");
 	game->frame = 1;
 	game->player.startdir = NONE;
+	game->player.quest = 0;
 	pos_setter(&game->player.pos, 0, 0);
 	init_img(&game->img);
 	init_img(&game->fr1);

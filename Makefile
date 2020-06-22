@@ -6,7 +6,7 @@
 #    By: mjiam <mjiam@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/05 18:36:52 by mjiam         #+#    #+#                  #
-#    Updated: 2020/06/09 14:50:26 by mjiam         ########   odam.nl          #
+#    Updated: 2020/06/18 17:26:01 by mjiam         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= 	cub3D
 
 SRC		= 	bmp.c check.c colour.c config.c cub3d.c exit.c init.c input.c \
 			map.c parser.c raycaster.c render.c sort.c sprite.c \
-			utils.c utils2.c
+			ui.c utils.c utils2.c
 
 GNL		=	gnl/get_next_line.c gnl/get_next_line_utils.c
 
@@ -43,11 +43,14 @@ LIB		= 	-framework OpenGL -framework AppKit
 
 MLX		= 	-L$(MLXDIR) -lmlx
 
+DYLIB	=	libmlx.dylib
+
 MLXDIR	=	minilibx
 
 # for Linux compilation
 # LIB		= 	-Lmlx_linux -lmlx -lXext -lX11 -lm -lz -AppKit
-# MLX		= 	mlx_linux/libmlx.a
+# MLX		= 	-L$(MLXDIR) -lmlx
+# DYLIB	=	libmlx.a
 # MLXDIR	= 	mlx_linux
 
 # COLORS
@@ -78,7 +81,7 @@ $(NAME): $(OBJ) $(MLX)
 
 $(MLX):
 	@make -C $(MLXDIR)
-	@cp -rf $(MLXDIR)/libmlx.dylib .
+	@cp -rf $(MLXDIR)/$(DYLIB) .
 	@echo "\n\t   $(TURQ)$(LBOR)minilibx compiled$(RBOR)$(WHITE)\n"
 
 debug: $(OBJ)
@@ -98,6 +101,7 @@ fclean: clean
 	@echo "\n\t   $(CYAN)$(LBOR)Clean af$(RBOR)$(WHITE)\n"
 	@rm -rf $(NAME)
 	@rm -rf libmlx.dylib
+	@rm -rf screenshot.bmp
 
 re:
 	@echo "\n\t   $(BLUE)$(LBOR)Aww here we go again$(RBOR)$(WHITE)\n"
