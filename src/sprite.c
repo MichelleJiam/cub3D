@@ -45,10 +45,12 @@ void	sprite_drawer(t_game *game, t_sprite *sprite, t_render *sp, t_img *tex)
 				f = sp->start.y * 2 - game->config.screenheight + sp->dim.y;
 				tex->pos.y = ((f * tex->height) / sp->dim.y) / 2;
 				sp->col.colour = tex_pixeliser(tex, tex->pos.x, tex->pos.y);
-				distance_shader(&sp->col, sprite->dist / 3);
 				if (sp->col.colour && sp->col.rgb.a == 0)
+				{
+					distance_shader(&sp->col, sprite->dist / 3);
 					pixel_putter(game, sp->start.x,
 									sp->start.y, sp->col.colour);
+				}
 				sp->start.y++;
 			}
 		}
