@@ -20,7 +20,7 @@ make
 ```
 
 ## Controls
-Move around with ```W``````A``````S``````D```.
+Move around with ```W A S D```.
 Look left and right with ```←``` and ```→```.
 Press ```ESC``` or the red X button to exit the game.
 
