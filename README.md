@@ -21,11 +21,17 @@ make
 
 ## Controls
 Move around with ```W A S D```.
+
 Look left and right with ```←``` and ```→```.
+
 Press ```ESC``` or the red X button to exit the game.
+
 
 ## Resources
 [minilibx guide](https://harm-smits.github.io/42docs/libs/minilibx/introduction.html)
+
 [Raycasting tutorial](https://lodev.org/cgtutor/raycasting.html)
+
 [Floodfill explanation](https://inventwithpython.com/blog/2011/08/11/recursion-explained-with-the-flood-fill-algorithm-and-zombies-and-cats/)
+
 [MacOSX key and mouse events](https://github.com/VBrazhnik/FdF/wiki/How-to-handle-mouse-buttons-and-key-presses%3F)
