@@ -5,7 +5,7 @@ The goal of the project is to display a dynamic view inside a maze, with the abi
 
 The input is a .cub file that contains the following customisable map specifications: resolution, wall textures for all directions, sprite texture(s), floor & ceiling colours/textures, and lastly, the map.
 
-The map will be denoted as follows: 1 for wall, 0 for floor, space for void, 2 for items, N/S/E/W for spawn position & orientation).
+The map will be denoted as follows: 1 for wall, 0 for floor, space for void, 2 for items, N/S/E/W for spawn position & orientation.
 
 This is a MacOSX compilation. For execution on Linux systems, XMing must be installed and minilibx for Linux included. 
 
