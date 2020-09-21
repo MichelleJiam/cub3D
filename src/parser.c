@@ -6,7 +6,7 @@
 /*   By: mjiam <mjiam@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/29 15:44:23 by mjiam         #+#    #+#                 */
-/*   Updated: 2020/06/19 14:44:09 by mjiam         ########   odam.nl         */
+/*   Updated: 2020/09/21 19:36:19 by mjiam         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int		parser(t_game *game, char *map)
 	while (ret)
 	{
 		ret = get_next_line(fd, &line);
+		if (ret < 0)
+			err_handler(game, "Failed to read from map file\n");
 		if (data_filler(game, line) < 0)
 			err_handler(game, "Invalid line in map file\n");
 		free(line);
