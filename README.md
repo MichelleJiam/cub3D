@@ -35,4 +35,6 @@ Press ```ESC``` or the red X button to exit the game.
 
 [Floodfill explanation](https://inventwithpython.com/blog/2011/08/11/recursion-explained-with-the-flood-fill-algorithm-and-zombies-and-cats/)
 
+[Bitmap format](https://medium.com/sysf/bits-to-bitmaps-a-simple-walkthrough-of-bmp-image-format-765dc6857393)
+
 [MacOSX key and mouse events](https://github.com/VBrazhnik/FdF/wiki/How-to-handle-mouse-buttons-and-key-presses%3F)
